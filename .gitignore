@@ -1,0 +1,7 @@
+Methyl_data/
+renv/
+CHAMP_Normalization/
+.RData
+.Rhistory
+.Rprofile
+renv.lock
