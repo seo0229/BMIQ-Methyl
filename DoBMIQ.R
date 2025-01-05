@@ -67,7 +67,27 @@ for(s in 1:ncol(bmiq.m)){
   print(s);
 }
 
+
 save(bmiq.m,file="bmiq.Rd");
+
+source_directory <- "./"
+results_directory <- "./results/"
+
+file_types <- "\\.pdf$|\\.Rd$"
+list_of_files <- list.files(source_directory, pattern=file_types, full.names=TRUE)
+
+# Move each file to the target directory
+for (file in list_of_files) {
+  file_name <- basename(file)  # Extract the file name
+  target_path <- file.path(results_directory, file_name)  # Create target path
+  file.rename(file, target_path)  # Move the file
+}
+
+# Confirmation message
+cat("Moved", length(list_of_files), "files to", results_directory, "\n")
+
+stop()
+
 ### select CpGs (remove CHs)
 annoindex <- which(anno450k.m[,1] %in% rownames(bmiq.m))
 annoindex <- annoindex[match(rownames(bmiq.m),anno450k.m[annoindex])]
