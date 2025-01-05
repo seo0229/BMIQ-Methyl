@@ -7,13 +7,13 @@ source("./BMIQ_1.4.R")
 
 print("Read Success.")
 
-# Sample ID names
-sample_info <- read_excel("./data/probesample.xlsx")
-sample_ids <- sample_info$name
+# Read Excel Files
+probes <- read_excel("./data/probesample.xlsx")
+beta_data <- read_excel("./data/beta.xlsx")
+
 
 index <- which(probeInfoALL.lv$probeID %in% rownames(data.m))
 index <- index[match(rownames(data.m),probeInfoALL.lv$probeID[index])]
-
 
 ###
 type1.idx <- which(probeInfoALL.lv[[2]][index]==1);
