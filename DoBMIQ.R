@@ -23,11 +23,13 @@ index <- index[match(rownames(data.m),probes$name[index])]
 
 print("Index created successfully.")
 
-###
-type1.idx <- which(probes[[2]][index]==1);
-type2.idx <- which(probes[[2]][index]==2);
-design.v <- probes[[2]][index];
+probe_targetid <- probes$targetid[index]
+type_ids <- substr(probe_targetid, nchar(probes$targetid) - 1, nchar(probes$targetid) - 1)
 
+###
+type1.idx <- which(type_ids==1);
+type2.idx <- which(type_ids==2);
+design.v <- type_ids
 
 pdf("Profiles.pdf",width=4,height=3);
 for(s in 1:ncol(data.m)){
