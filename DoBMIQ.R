@@ -1,24 +1,32 @@
 library(readxl)
 
-### DoBMIQ.R
-load("./data/beta.xlsx")
-load("./data/probesample.xlsx")
-source("./BMIQ_1.4.R")
-
-print("Read Success.")
-
 # Read Excel Files
 probes <- read_excel("./data/probesample.xlsx")
 beta_data <- read_excel("./data/beta.xlsx")
 
+# Creating data matrix
+probe_ids <- sub("_.*", "", beta_data$`probe set`)
+data.m <- as.matrix(beta_data[, -1])
+rownames(data.m) <- probe_ids
+# save(data.m, file = "data.m.RData")
 
-index <- which(probeInfoALL.lv$probeID %in% rownames(data.m))
-index <- index[match(rownames(data.m),probeInfoALL.lv$probeID[index])]
+print("Data matrix created successfully.")
+
+### DoBMIQ.R
+source("./BMIQ_1.4.R")
+
+print("Read Success.")
+
+
+index <- which(probes$name %in% rownames(data.m))
+index <- index[match(rownames(data.m),probes$name[index])]
+
+print("Index created successfully.")
 
 ###
-type1.idx <- which(probeInfoALL.lv[[2]][index]==1);
-type2.idx <- which(probeInfoALL.lv[[2]][index]==2);
-design.v <- probeInfoALL.lv[[2]][index];
+type1.idx <- which(probes[[2]][index]==1);
+type2.idx <- which(probes[[2]][index]==2);
+design.v <- probes[[2]][index];
 
 
 pdf("Profiles.pdf",width=4,height=3);
