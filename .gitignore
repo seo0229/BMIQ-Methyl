@@ -6,3 +6,6 @@ CHAMP_Normalization/
 .Rprofile
 renv.lock
 packages/
+results/
+*.pdf
+*.Rd

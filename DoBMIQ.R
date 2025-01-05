@@ -10,7 +10,16 @@ data.m <- as.matrix(beta_data[, -1])
 rownames(data.m) <- probe_ids
 # save(data.m, file = "data.m.RData")
 
-print("Data matrix created successfully.")
+# Remove rows with any NA values
+complete_rows <- complete.cases(data.m)
+data.m <- data.m[complete_rows, ]
+
+# Update probe_ids to match the filtered data.m
+probe_ids <- probe_ids[complete_rows]
+rownames(data.m) <- probe_ids
+
+print(paste("Removed", sum(!complete_rows), "rows containing NA values"))
+print(paste("Final dimensions of data.m:", nrow(data.m), "rows by", ncol(data.m), "columns"))
 
 ### DoBMIQ.R
 source("./BMIQ_1.4.R")
@@ -30,6 +39,7 @@ type_ids <- substr(probe_targetid, nchar(probes$targetid) - 1, nchar(probes$targ
 type1.idx <- which(type_ids==1);
 type2.idx <- which(type_ids==2);
 design.v <- type_ids
+
 
 pdf("Profiles.pdf",width=4,height=3);
 for(s in 1:ncol(data.m)){
