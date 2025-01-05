@@ -1,10 +1,15 @@
+library(readxl)
+
 ### DoBMIQ.R
-load("./data.m.Rd")
-load("./probeInfoALL.lv.Rd")
-load("./anno450k.Rd")
+load("./data/beta.xlsx")
+load("./data/probesample.xlsx")
 source("./BMIQ_1.4.R")
 
 print("Read Success.")
+
+# Sample ID names
+sample_info <- read_excel("./data/probesample.xlsx")
+sample_ids <- sample_info$name
 
 index <- which(probeInfoALL.lv$probeID %in% rownames(data.m))
 index <- index[match(rownames(data.m),probeInfoALL.lv$probeID[index])]

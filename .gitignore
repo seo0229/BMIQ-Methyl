@@ -5,3 +5,4 @@ CHAMP_Normalization/
 .Rhistory
 .Rprofile
 renv.lock
+packages/
