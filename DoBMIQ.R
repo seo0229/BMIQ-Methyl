@@ -7,8 +7,11 @@ beta_data <- read_excel("./data/beta.xlsx")
 # Creating data matrix
 probe_ids <- sub("_.*", "", beta_data$`probe set`)
 data.m <- as.matrix(beta_data[, -1])
+sample_id <- colnames(beta_data)[-1]
 rownames(data.m) <- probe_ids
 # save(data.m, file = "data.m.RData")
+
+print(first_row)
 
 # Remove rows with any NA values
 complete_rows <- complete.cases(data.m)
@@ -53,7 +56,7 @@ dev.off();
 
 for(s in 1:ncol(data.m)){
   beta.v <- data.m[,s];
-  bmiq.o <- BMIQ(beta.v,design.v,sampleID=s);
+  bmiq.o <- BMIQ(beta.v,design.v,sampleID=sample_id[s]);
   tmp.v <- bmiq.o$nbeta;
   save(tmp.v,file=paste("bmiq",s,".Rd",sep=""));
   print(paste("Done BMIQ for sample ",s,sep=""));
