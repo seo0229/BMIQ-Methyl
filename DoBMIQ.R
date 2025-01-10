@@ -42,14 +42,14 @@ type2.idx <- which(type_ids==2);
 design.v <- type_ids
 
 
-pdf("Profiles.pdf",width=4,height=3);
+pdf("Profiles.pdf", width=4, height=3)
 for(s in 1:ncol(data.m)){
-   plot(density(data.m[type1.idx,s]));
-   d.o <- density(data.m[type2.idx,s]);
-   points(d.o$x,d.o$y,type="l",col="red");
-print(s);
+  plot(density(data.m[type1.idx, s]), main = paste("Density Plot for Sample", sample_id[s]))
+  d.o <- density(data.m[type2.idx, s])
+  points(d.o$x, d.o$y, type="l", col="red")
+  print(s)
 }
-dev.off();
+dev.off()
 
 
 for(s in 1:ncol(data.m)){
