@@ -9,3 +9,4 @@ packages/
 results/
 *.pdf
 *.Rd
+*.xlsx

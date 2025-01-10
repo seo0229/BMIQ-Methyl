@@ -1,8 +1,11 @@
 library(readxl)
 
 # Read Excel Files
-probes <- read_excel("./data/probesample.xlsx")
-beta_data <- read_excel("./data/beta.xlsx")
+# probes <- read_excel("./data/probesample.xlsx")
+# beta_data <- read_excel("./data/beta.xlsx")
+
+probes <- read_excel("./data/new_data/probesample.xlsx")
+beta_data <- read_excel("./data/new_data/beta.xlsx")
 
 # Creating data matrix
 probe_ids <- sub("_.*", "", beta_data$`probe set`)
@@ -44,6 +47,12 @@ design.v <- type_ids
 
 pdf("Profiles.pdf", width=4, height=3)
 for(s in 1:ncol(data.m)){
+  check_for_fail <- grepl("FAILED", sample_id[s])
+
+  if (check_for_fail) {
+    next
+  }
+
   plot(density(data.m[type1.idx, s]), main = paste("Density Plot for Sample", sample_id[s]))
   d.o <- density(data.m[type2.idx, s])
   points(d.o$x, d.o$y, type="l", col="red")
@@ -53,6 +62,12 @@ dev.off()
 
 
 for(s in 1:ncol(data.m)){
+  check_for_fail <- grepl("FAILED", sample_id[s])
+
+  if (check_for_fail) {
+    next
+  }
+
   beta.v <- data.m[,s];
   bmiq.o <- BMIQ(beta.v,design.v,sampleID=sample_id[s]);
   tmp.v <- bmiq.o$nbeta;
@@ -63,6 +78,12 @@ for(s in 1:ncol(data.m)){
 bmiq.m <- data.m;
 rm(data.m);
 for(s in 1:ncol(bmiq.m)){
+  check_for_fail <- grepl("FAILED", sample_id[s])
+
+  if (check_for_fail) {
+    next
+  }
+  
   load(paste("bmiq",s,".Rd",sep=""));
   bmiq.m[,s] <- tmp.v;
   print(s);
