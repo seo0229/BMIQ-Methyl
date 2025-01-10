@@ -91,7 +91,7 @@ cat("Moved", length(list_of_files), "files to", results_directory, "\n")
 
 stop()
 
-### select CpGs (remove CHs)
+### select CpGs (remove CHs) - Wasn't able to do yet...
 annoindex <- which(anno450k.m[,1] %in% rownames(bmiq.m))
 annoindex <- annoindex[match(rownames(bmiq.m),anno450k.m[annoindex])]
 anno.m <- anno450k.m[annoindex,]
