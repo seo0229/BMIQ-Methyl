@@ -11,8 +11,6 @@ sample_id <- colnames(beta_data)[-1]
 rownames(data.m) <- probe_ids
 # save(data.m, file = "data.m.RData")
 
-print(first_row)
-
 # Remove rows with any NA values
 complete_rows <- complete.cases(data.m)
 data.m <- data.m[complete_rows, ]
